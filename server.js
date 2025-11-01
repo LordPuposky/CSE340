@@ -30,5 +30,6 @@ app.listen(port, () => {
 })
 
 app.get('/', (req, res) => {
-  res.send('¡Server is running!');
+  res.send('Server is running!');
 });
+
