@@ -1,6 +1,226 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
+/* General reset and box model */
+*, *:before, *:after {
   box-sizing: border-box;
+}
+
+/* Main background */
+body {
+  margin: 0;
+  background: url('/images/site/checkerboard.jpg');
+  background-repeat: repeat;
+  background-size: 64px 64px;
+  font-family: 'Arial Rounded MT Bold', Arial, Helvetica, sans-serif;
+  color: #181638; /* Main text color - passes contrast */
+}
+
+/* Centered main content on checkerboard background */
+.home-content {
+  background: #fff;
+  border: 2.5px solid #11111140;
+  border-radius: 13px;
+  max-width: 930px;
+  margin: 34px auto 24px auto;
+  box-shadow: 0 0 12px #22222222;
+  padding: 0 0 30px 0;
+}
+
+/* Header inside the white area (logo and account) */
+.header-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.3rem 2.2rem .6rem 2.2rem;
+  border-bottom: 2.2px solid #e4e5ef;
+  margin-bottom: 0.1em;
+}
+
+.logo {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111553; /* Deep blue, strong contrast */
+  letter-spacing: 1px;
+}
+
+.my-account {
+  color: #595968; /* Sufficient contrast gray */
+  font-size: .99rem;
+  font-weight: 400;
+  margin-top: 0.4rem;
+}
+
+/* Navigation inside main box */
+nav {
+  margin: 0 2.2rem;
+  margin-bottom: 1.1rem;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #1e1c31;
+  padding: 0;
+  margin: 0;
+  gap: 0.3rem;
+  border-radius: 4px;
+}
+nav li { margin: 0 .3rem; }
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: .59rem 1.38rem;
+  display: block;
+}
+nav a:hover, nav a:focus {
+  background: #283052;
+  border-radius: 4px;
+}
+
+/* Main heading */
+h1 {
+  font-size: 1.42rem;
+  font-weight: 700;
+  margin: 2.5rem 2.2rem 1.3rem 2.2rem;
+}
+
+/* Main-row content: promo + reviews */
+.main-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7em;
+  margin: 0 2.2rem;
+}
+
+/* Delorean section and highlight color accessibility fix */
+.delorean-promo { margin-bottom: 1em; }
+
+/* Strong contrast for highlight titles */
+.highlight {
+  color: #005a70; /* Dark blue, passes contrast */
+  font-weight: bold;
+  font-size: 1.13rem;
+  margin-bottom: .2em;
+  margin-top: .4em;
+  display: block;
+}
+
+/* List items with high contrast color */
+.delorean-promo ul {
+  margin: 0 0 1.1em 0;
+  padding-left: 1em;
+  color: #006791; /* Blue improved for contrast */
+  font-size: 1em;
+  font-weight: bold;
+}
+
+/* Own Today button image */
+.btn-own img {
+  display: block;
+  margin: .35em 0 .92em 0;
+  max-width: 140px;
+  border-radius: 6px;
+  box-shadow: 1px 2px 4px #cbe6ef55;
+}
+
+/* Delorean car image */
+.delorean-img {
+  max-width: 325px;
+  width: 98%;
+  display: block;
+  margin: 0rem auto 1.6rem auto;
+}
+
+/* Section headings and reviews */
+.reviews h2, .upgrades h2 {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: .8em;
+  margin-top: .7em;
+  color: #181638; /* Main deep blue for strong contrast */
+}
+.reviews ul {
+  padding-left: 1.08em;
+  font-size: .99em;
+  margin-top: 0;
+}
+
+/* Upgrades grid section */
+.upgrades {
+  margin-top: 2.4rem;
+  margin-left: 2.2rem;
+  margin-right: 2.2rem;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.11em;
+  margin-top: 1em;
+}
+
+/* Upgrade cards with lighter blue bg and high contrast text */
+.upgrade-grid div {
+  background: #A9EFFA; /* Light blue for better text contrast */
+  border-radius: 8px;
+  padding: 0.7em .2em .6em .2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 110px;
+  min-width: 90px;
+  justify-content: center;
+}
+
+/* Upgrade images */
+.upgrade-grid img {
+  width: 56px;
+  height: auto;
+  margin-bottom: .25em;
+}
+
+/* Strong contrast for upgrade links */
+.upgrade-grid a {
+  color: #181638; /* Deep navy blue passes contrast on light blue */
+  font-size: 1em;
+  font-weight: 600;
+  text-decoration: underline;
+  margin-top: .10em;
+}
+
+/* Footer styles */
+footer {
+  text-align: center;
+  color: #63637c;
+  font-size: .97em;
+  margin: 2.1em 0 .8em 0;
+  letter-spacing: 0.03em;
+}
+
+/* Desktop/Large screen fixes */
+@media (min-width: 800px) {
+  .home-content { padding-bottom: 40px; }
+  .header-bar, nav, h1, .main-row, .upgrades {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+  .main-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+  .delorean-promo, .reviews {
+    width: 48%;
+    margin: 0;
+  }
+  .delorean-img {
+    margin-left: 0;
+    margin-right: 0;
+    width: 255px;
+    max-width: 320px;
+  }
+  .upgrade-grid { grid-template-columns: repeat(4, 1fr); gap: 1.1em; }
 }
