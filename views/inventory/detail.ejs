@@ -10,16 +10,8 @@
         <nav>
         <%- nav %>
         </nav>
-
-        <% if (title) { %>
-        <h1><%= title %></h1>
-        <% } else { res.redirect('/') } %>
-
-        <!-- Message Block (optional, if you use messaging) -->
-        <%# messages() %>
-
-        <!-- Inventory Items Display -->
-        <%- grid %>
+        <!-- Vehicle detail HTML injected here -->
+        <%- detail %>
     </div>
 </body>
 </html>

@@ -67,3 +67,6 @@ app.use(async (err, req, res, next) => {
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`);
 })
+
+app.use(express.static('public'));
+
