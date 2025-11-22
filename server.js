@@ -6,20 +6,38 @@
 /* ***********************
  * Require Statements
  *************************/
-const session = require("express-session")
-const pool = require('./database/')
 const express = require("express")
 const env = require("dotenv").config()
-const inventoryRoute = require("./routes/inventoryRoute")
-const app = express()
-const static = require("./routes/static")
-const baseController = require("./controllers/baseController")
-const utilities = require("./utilities")
 const path = require("path")
+const session = require("express-session")
+const pool = require('./database/')
+
+/* ***********************
+ * Create Express App
+ *************************/
+const app = express()
+
+/* ***********************
+ * View Engine Setup & Static Files
+ * MUST come first
+ *************************/
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "views"))
+app.use(express.static(path.join(__dirname, "public")))
 
 /* ***********************
  * Middleware
- * ************************/
+ *************************/
+
+/* Body parser middleware setup
+  * In modern versions of Node and Express (4.16+), body parsing functionality is built-in.
+  * The "body-parser" package is no longer required. I use express.json() and express.urlencoded().
+  * This makes my code cleaner and uses the recommended approach for handling request bodies.
+*/
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+// Session middleware
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -39,20 +57,14 @@ app.use(function (req, res, next) {
 })
 
 /* ***********************
- * View Engine Setup & Static Files
- * MUST come before routes
+ * Routes - Load AFTER all middleware
  *************************/
-app.set("view engine", "ejs")
-app.set("views", path.join(__dirname, "views"))
-app.use(express.static(path.join(__dirname, "public")))
+const utilities = require("./utilities")
+const baseController = require("./controllers/baseController")
+const static = require("./routes/static")
+const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
 
-// Body parser middleware
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-
-/* ***********************
- * Routes
- *************************/
 // Index route (Home, MVC)
 app.get("/", utilities.handleErrors(baseController.buildHome))
 
@@ -62,15 +74,13 @@ app.use(static)
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
-// Account routes ← MOVER AQUÍ
-const accountRoutes = require("./routes/accountRoute")
-app.use("/account", accountRoutes)
+// Account routes
+app.use("/account", accountRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
 })
-
 
 /* ***********************
 * Express Error Handler
@@ -79,13 +89,15 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  let message = err.message
+  
+  let message
   if (err.status == 404) {
     message = err.message
   } else {
     message = 'Oh no! There was a crash. Maybe try a different route?'
   }
-  res.render("errors/error", {
+
+  res.status(err.status || 500).render("errors/error", {
     title: err.status || 'Server Error',
     message,
     nav

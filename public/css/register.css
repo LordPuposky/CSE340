@@ -1,15 +1,29 @@
-.login-container {
+.register-container {
     max-width: 340px;
     margin: 3rem auto;
     background: #25a9e0;
     padding: 2rem;
     border-radius: 14px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.10);
     border: 3px solid #14aac9;
-    position: relative;
 }
 
-.login-form label {
+.register-container form fieldset {
+    border: 1px solid #fff;
+    padding: 1rem 1rem 0.5rem 1rem;
+    border-radius: 10px;
+    background: transparent;
+}
+
+.register-container legend {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #333;
+    margin-bottom: .7rem;
+    letter-spacing: 0.5px;
+}
+
+.register-container label {
     display: block;
     margin: 1.1rem 0 0.35rem;
     font-size: 1.15rem;
@@ -17,24 +31,24 @@
     font-weight: bold;
 }
 
-.login-form input {
+.register-container input {
     width: 100%;
     padding: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     border-radius: 5px;
     border: 2px solid #eee;
     font-size: 1rem;
     background: #fff;
 }
 
-.login-form small {
+.register-container small {
     display: block;
     margin-bottom: 1rem;
     color: #222;
-    font-size: 0.92em;
+    font-size: 0.95em;
 }
 
-.login-form button[type=button] {
+.register-container button[type=button] {
     margin-bottom: 1rem;
     margin-right: 0.6rem;
     background: #222;
@@ -46,7 +60,7 @@
     cursor: pointer;
 }
 
-.login-form button[type=submit] {
+.register-container button[type=submit] {
     background: #25ad5e;
     color: #fff;
     border: none;
@@ -54,37 +68,19 @@
     padding: 0.6rem 1.1rem;
     font-size: 1rem;
     cursor: pointer;
+    margin-bottom: 0.7rem;
 }
 
-.signup-link {
+.login-link {
     text-align: center;
-    margin-top: 2rem;
-    font-size: 1.06rem;
+    margin-top: 1.5rem;
+    font-size: 1.08rem;
 }
 
-.signup-link a {
+.login-link a {
     color: #2546b2;
     text-decoration: underline;
     font-weight: bold;
-}
-
-.flash-message {
-    background: #fffbea;
-    border: 2px solid #ffe39e;
-    color: #222;
-    padding: .6rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.login-bg {
-    background: #fff !important;
-    min-height: 100vh;
-}
-
-.login-footer {
-    background: #fff !important;
 }
 
 .flash-message {
