@@ -62,13 +62,15 @@ app.use(static)
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
+// Account routes ← MOVER AQUÍ
+const accountRoutes = require("./routes/accountRoute")
+app.use("/account", accountRoutes)
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
 })
 
-const accountRoutes = require("./routes/accountRoute")
-app.use("/account", accountRoutes)
 
 /* ***********************
 * Express Error Handler
