@@ -4,20 +4,20 @@ const Util = {};
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
-Util.getNav = async function (req, res, next) {
-    let data = await invModel.getClassifications();
+Util.getNav = async function () {
+    let data = await invModel.getClassifications(); // data is now an array
     let list = "<ul>";
     list += '<li><a href="/" title="Home page">Home</a></li>';
-    data.rows.forEach((row) => {
+    data.forEach((row) => {
         list += "<li>";
         list +=
-        '<a href="/inv/type/' +
-        row.classification_id +
-        '" title="See our inventory of ' +
-        row.classification_name +
-        ' vehicles">' +
-        row.classification_name +
-        "</a>";
+            '<a href="/inv/type/' +
+            row.classification_id +
+            '" title="See our inventory of ' +
+            row.classification_name +
+            ' vehicles">' +
+            row.classification_name +
+            "</a>";
         list += "</li>";
     });
     list += "</ul>";
@@ -40,26 +40,26 @@ Util.buildClassificationGrid = async function (data) {
     if (data.length > 0) {
         grid = '<div class="vehicle-grid">';
         data.forEach((vehicle) => {
-        // Price formatting with dollar and commas
-        const formattedPrice = `$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}`;
-        grid += `<div class="grid-item">
-            <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
-                <img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
-            </a>
-            <div class="namePrice">
-                <h2>
-                    <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
-                        ${vehicle.inv_make} ${vehicle.inv_model}
-                    </a>
-                </h2>
-                <span class="price">${formattedPrice}</span>
-            </div>
-        </div>`;
+            // Price formatting with dollar and commas
+            const formattedPrice = `$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}`;
+            grid += `<div class="grid-item">
+                <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+                    <img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
+                </a>
+                <div class="namePrice">
+                    <h2>
+                        <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
+                            ${vehicle.inv_make} ${vehicle.inv_model}
+                        </a>
+                    </h2>
+                    <span class="price">${formattedPrice}</span>
+                </div>
+            </div>`;
         });
         grid += "</div>";
     } else {
         grid =
-        '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+            '<p class="notice">Sorry, no matching vehicles could be found.</p>';
     }
     return grid;
 };
