@@ -67,6 +67,9 @@ app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
 })
 
+const accountRoutes = require("./routes/accountRoute")
+app.use("/account", accountRoutes)
+
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
