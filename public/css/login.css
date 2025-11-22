@@ -9,6 +9,17 @@
     position: relative;
 }
 
+/* MODIFIED: Style for password requirements message */
+.login-container .password-requirements {
+    margin-bottom: 0.85rem;
+    color: #005A70;
+    font-weight: 600;
+    background: #e9f9ff;
+    border-radius: 7px;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.98em;
+}
+
 .login-form label {
     display: block;
     margin: 1.1rem 0 0.35rem;
@@ -87,12 +98,37 @@
     background: #fff !important;
 }
 
-.flash-message {
-    background: #fffbea;
-    border: 2px solid #ffe39e;
-    color: #222;
-    padding: .6rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
+body {
+    background: #fff !important;
+    background-image: none !important;
+}
+
+.footer-bg {
+    display: none !important;
+}
+
+footer {
+    background: #fff !important;
+    background-image: none !important;
     text-align: center;
+    color: #222;
+    padding: 16px 0;
+    font-size: 1rem;
+    margin: 0;
+}
+
+#footer-error-link {
+    display: block;
+    margin-top: 6px;
+    color: #2546b2;
+}
+
+/* ADDED: Visual feedback for required valid/invalid inputs */
+.login-container input:required:valid {
+    border-color: #27ae60;
+}
+
+.login-container input:required:invalid,
+.login-container input:focus:invalid {
+    border-color: #e74c3c;
 }

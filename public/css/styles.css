@@ -426,3 +426,26 @@ nav a:hover {
   background: #25a9e0;
   color: #fff;
 }
+
+.footer-bg {
+    height: 16px;
+    width: 100%;
+    background-image: url('/images/site/checkerboard.jpg');
+    background-repeat: repeat-x;
+    background-size: contain;
+    margin: 0;
+    padding: 0;
+}
+footer {
+    background: none;
+    text-align: center;
+    color: #222;
+    padding: 12px 0 6px 0;
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+}
+#footer-error-link {
+    display: block;
+    margin-top: 4px;
+}

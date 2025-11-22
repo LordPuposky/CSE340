@@ -4,8 +4,19 @@
     background: #25a9e0;
     padding: 2rem;
     border-radius: 14px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.10);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
     border: 3px solid #14aac9;
+}
+
+/* MODIFIED: Style for password requirements message */
+.register-container .password-requirements {
+    margin-bottom: 0.85rem;
+    color: #005A70;
+    font-weight: 600;
+    background: #e9f9ff;
+    border-radius: 7px;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.98em;
 }
 
 .register-container form fieldset {
@@ -91,4 +102,39 @@
     border-radius: 8px;
     margin-bottom: 1rem;
     text-align: center;
+}
+
+body {
+    background: #fff !important;
+    background-image: none !important;
+}
+
+.footer-bg {
+    display: none !important;
+}
+
+footer {
+    background: #fff !important;
+    background-image: none !important;
+    text-align: center;
+    color: #222;
+    padding: 16px 0;
+    font-size: 1rem;
+    margin: 0;
+}
+
+#footer-error-link {
+    display: block;
+    margin-top: 6px;
+    color: #2546b2;
+}
+
+/* ADDED: Visual feedback for required valid/invalid inputs */
+.register-container input:required:valid {
+    border-color: #27ae60;
+}
+
+.register-container input:required:invalid,
+.register-container input:focus:invalid {
+    border-color: #e74c3c;
 }
