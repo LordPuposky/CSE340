@@ -1,7 +1,9 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
+
 const invCont = {}
+
 
 /* ***************************
  *  Build inventory by classification view
@@ -10,6 +12,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
     try {
         const classification_id = req.params.classificationId
         const vehicles = await invModel.getInventoryByClassificationId(classification_id)
+
 
         if (!vehicles || vehicles.length === 0) {
             let nav = await utilities.getNav()
@@ -20,6 +23,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
             })
             return
         }
+
 
         let nav = await utilities.getNav()
         const className = vehicles[0].classification_name
@@ -33,6 +37,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
     }
 }
 
+
 /* ***************************
  *  Build vehicle detail view
  * ************************** */
@@ -40,6 +45,7 @@ invCont.buildDetailView = async function (req, res, next) {
     try {
         const invId = req.params.invId // Get vehicle id from URL
         const vehicle = await invModel.getInventoryById(invId)
+
 
         // Validate if vehicle exists
         if (!vehicle) {
@@ -52,6 +58,7 @@ invCont.buildDetailView = async function (req, res, next) {
             })
             return
         }
+
 
         let nav = await utilities.getNav()
         // Build the vehicle detail HTML using utilities function
@@ -66,6 +73,7 @@ invCont.buildDetailView = async function (req, res, next) {
     }
 }
 
+
 /* ***************************
  *  Show inventory management page
  * ************************** */
@@ -77,6 +85,7 @@ invCont.showManagement = async function (req, res) {
         message: req.flash ? req.flash('message') : null
     })
 }
+
 
 /* ***************************
  *  Show add classification form
@@ -90,14 +99,50 @@ invCont.showAddClassification = async function (req, res) {
     })
 }
 
+
 /* ***************************
  *  Add new classification
  * ************************** */
 invCont.addClassification = async function (req, res) {
-    const { classification_name } = req.body
-    req.flash('message', 'Classification added!')
-    res.redirect('/inv')
+    try {
+        // Si hay errores de validación, renderiza el formulario con errores
+        if (req.errors && req.errors.length > 0) {
+            let nav = await utilities.getNav()
+            return res.render("inventory/add-classification", {
+                title: "Add New Classification",
+                nav,
+                classification_name: req.body.classification_name,
+                errors: req.errors
+            })
+        }
+
+
+        const { classification_name } = req.body
+
+
+        // Insertar en base de datos
+        await invModel.addClassification(classification_name)
+
+
+        // Flash message de éxito
+        req.flash('message', `${classification_name} classification was successfully added.`)
+
+
+        // Redireccionar a management
+        res.redirect('/inv')
+    } catch (error) {
+        // Manejar error
+        let nav = await utilities.getNav()
+        res.render("inventory/add-classification", {
+            title: "Add New Classification",
+            nav,
+            classification_name: req.body.classification_name,
+            errors: [{ msg: 'Error adding classification. Please try again.' }]
+        })
+    }
 }
+
+
 
 /* ***************************
  *  Show add vehicle form
@@ -113,20 +158,61 @@ invCont.showAddInventory = async function (req, res) {
     })
 }
 
+
 /* ***************************
  *  Add new vehicle
  * ************************** */
 invCont.addInventory = async function (req, res) {
     try {
         const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
-        await invModel.addInventory({ inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id })
-        req.flash('message', 'Vehicle added!')
+
+
+        // Insert vehicle into database
+        await invModel.addInventory({
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_miles,
+            inv_color,
+            classification_id
+        })
+
+
+        // Success - flash message and redirect
+        req.flash('message', 'Vehicle added successfully!')
         res.redirect('/inv')
     } catch (error) {
-        req.flash('message', 'Error adding vehicle.')
-        res.redirect('/inv')
+        // Error - render form with sticky data
+        let nav = await utilities.getNav()
+        let classifications = await invModel.getClassifications()
+        let classificationList = await utilities.buildClassificationList(req.body.classification_id)
+
+
+        res.render("inventory/add-inventory", {
+            title: "Add New Vehicle",
+            nav,
+            classificationList,
+            classifications,
+            inv_make: req.body.inv_make,
+            inv_model: req.body.inv_model,
+            inv_year: req.body.inv_year,
+            inv_description: req.body.inv_description,
+            inv_image: req.body.inv_image,
+            inv_thumbnail: req.body.inv_thumbnail,
+            inv_price: req.body.inv_price,
+            inv_miles: req.body.inv_miles,
+            inv_color: req.body.inv_color,
+            classification_id: req.body.classification_id,
+            errors: [{ msg: 'Error adding vehicle. Please correct all fields and try again.' }]
+        })
     }
 }
+
+
 
 /* ***************************
  *  Show edit vehicle form
@@ -147,6 +233,7 @@ invCont.showEditInventory = async function (req, res, next) {
         next(error)
     }
 }
+
 
 /* ***************************
  *  Update vehicle
@@ -175,6 +262,7 @@ invCont.editInventory = async function (req, res) {
     }
 }
 
+
 /* ***************************
  *  Delete vehicle
  * ************************** */
@@ -188,5 +276,6 @@ invCont.deleteInventory = async function (req, res) {
         res.redirect("/inv")
     }
 }
+
 
 module.exports = invCont

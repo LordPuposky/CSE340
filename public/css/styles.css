@@ -1,59 +1,103 @@
-/* General reset and box model */
-*, *:before, *:after {
+/* ==========================================
+   GENERAL RESET AND BOX MODEL
+   ========================================== */
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
-/* Main background */
-body {
-  margin: 0;
-  background: url('/images/site/checkerboard.jpg');
+
+/* ==========================================
+   MAIN BACKGROUND - CHECKERBOARD PATTERN
+   ========================================== */
+html {
+  background: url('/images/site/checkerboard.jpg') fixed;
   background-repeat: repeat;
   background-size: 64px 64px;
-  font-family: 'Arial Rounded MT Bold', Arial, Helvetica, sans-serif;
-  color: #181638; /* Main text color - passes contrast */
+  background-attachment: fixed;
 }
 
-/* Centered main content on checkerboard background */
-.home-content {
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font-family: 'Arial Rounded MT Bold', Arial, Helvetica, sans-serif;
+  color: #181638;
+  min-height: 100vh;
+}
+
+
+/* ==========================================
+   MAIN CONTENT CONTAINER
+   ========================================== */
+.home-content,
+.auth-main-content {
   background: #fff;
-  border: 2.5px solid #11111140;
-  border-radius: 13px;
+  border: 3px solid #000;
   max-width: 930px;
   margin: 34px auto 24px auto;
-  box-shadow: 0 0 12px #22222222;
+  box-shadow: none;
   padding: 0 0 30px 0;
+  position: relative;
+  z-index: 10;
 }
 
-/* Header inside the white area (logo and account) */
-.header-bar {
+
+/* ==========================================
+   HEADER STYLES
+   ========================================== */
+header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1.3rem 2.2rem .6rem 2.2rem;
+  padding: 1.3rem 2.2rem 0.6rem 2.2rem;
   border-bottom: 2.2px solid #e4e5ef;
   margin-bottom: 0.1em;
+  background-color: #fff;
 }
 
-.logo {
+header .logo {
   font-size: 2.2rem;
   font-weight: 800;
-  color: #111553; /* Deep blue, strong contrast */
+  color: #111553;
   letter-spacing: 1px;
 }
 
-.my-account {
-  color: #595968; /* Sufficient contrast gray */
-  font-size: .99rem;
-  font-weight: 400;
-  margin-top: 0.4rem;
+header .my-account {
+  color: #fff;
+  font-size: 0.99rem;
+  font-weight: 600;
+  margin-top: 0;
+  display: inline-block;
+  padding: 0.59rem 1.38rem;
+  background: #1e1c31;
+  border: 1px solid #1e1c31;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s ease;
 }
 
-/* Navigation inside main box */
+header .my-account:hover {
+  background: #283052;
+  border-color: #283052;
+}
+
+header .my-account:focus {
+  outline: 2px solid #0099aa;
+  outline-offset: 2px;
+}
+
+
+/* ==========================================
+   NAVIGATION BAR
+   ========================================== */
 nav {
   margin: 0 2.2rem;
   margin-bottom: 1.1rem;
 }
+
 nav ul {
   list-style: none;
   display: flex;
@@ -65,28 +109,54 @@ nav ul {
   gap: 0.3rem;
   border-radius: 4px;
 }
-nav li { margin: 0 .3rem; }
+
+nav li {
+  margin: 0 0.3rem;
+}
+
 nav a {
   color: #fff;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
-  padding: .59rem 1.38rem;
+  padding: 0.59rem 1.38rem;
   display: block;
+  transition: background 0.2s ease;
+  border-radius: 4px;
 }
-nav a:hover, nav a:focus {
+
+nav a:hover,
+nav a:focus {
   background: #283052;
   border-radius: 4px;
 }
 
-/* Main heading */
+
+/* ==========================================
+   MAIN CONTENT AREA
+   ========================================== */
+main {
+  background: #fff;
+}
+
 h1 {
   font-size: 1.42rem;
   font-weight: 700;
   margin: 2.5rem 2.2rem 1.3rem 2.2rem;
 }
 
-/* Main-row content: promo + reviews */
+h2 {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 0.8em;
+  margin-top: 0.7em;
+  color: #181638;
+}
+
+
+/* ==========================================
+   HOME PAGE CONTENT SECTIONS
+   ========================================== */
 .main-row {
   display: flex;
   flex-direction: column;
@@ -94,38 +164,35 @@ h1 {
   margin: 0 2.2rem;
 }
 
-/* Delorean section and highlight color accessibility fix */
-.delorean-promo { margin-bottom: 1em; }
+.delorean-promo {
+  margin-bottom: 1em;
+}
 
-/* Strong contrast for highlight titles */
 .highlight {
-  color: #005a70; /* Dark blue, passes contrast */
+  color: #005a70;
   font-weight: bold;
   font-size: 1.13rem;
-  margin-bottom: .2em;
-  margin-top: .4em;
+  margin-bottom: 0.2em;
+  margin-top: 0.4em;
   display: block;
 }
 
-/* List items with high contrast color */
 .delorean-promo ul {
   margin: 0 0 1.1em 0;
   padding-left: 1em;
-  color: #006791; /* Blue improved for contrast */
+  color: #006791;
   font-size: 1em;
   font-weight: bold;
 }
 
-/* Own Today button image */
 .btn-own img {
   display: block;
-  margin: .35em 0 .92em 0;
+  margin: 0.35em 0 0.92em 0;
   max-width: 140px;
   border-radius: 6px;
   box-shadow: 1px 2px 4px #cbe6ef55;
 }
 
-/* Delorean car image */
 .delorean-img {
   max-width: 325px;
   width: 98%;
@@ -133,21 +200,25 @@ h1 {
   margin: 0rem auto 1.6rem auto;
 }
 
-/* Section headings and reviews */
-.reviews h2, .upgrades h2 {
+.reviews h2,
+.upgrades h2 {
   font-size: 1.15rem;
   font-weight: bold;
-  margin-bottom: .8em;
-  margin-top: .7em;
-  color: #181638; /* Main deep blue for strong contrast */
+  margin-bottom: 0.8em;
+  margin-top: 0.7em;
+  color: #181638;
 }
+
 .reviews ul {
   padding-left: 1.08em;
-  font-size: .99em;
+  font-size: 0.99em;
   margin-top: 0;
 }
 
-/* Upgrades grid section */
+
+/* ==========================================
+   UPGRADES GRID SECTION
+   ========================================== */
 .upgrades {
   margin-top: 2.4rem;
   margin-left: 2.2rem;
@@ -161,71 +232,85 @@ h1 {
   margin-top: 1em;
 }
 
-/* Upgrade cards with lighter blue bg and high contrast text */
 .upgrade-grid div {
-  background: #A9EFFA; /* Light blue for better text contrast */
+  background: #A9EFFA;
   border-radius: 8px;
-  padding: 0.7em .2em .6em .2em;
+  padding: 0.7em 0.2em 0.6em 0.2em;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 110px;
   min-width: 90px;
   justify-content: center;
+  transition: box-shadow 0.2s ease;
 }
 
-/* Upgrade images */
+.upgrade-grid div:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .upgrade-grid img {
   width: 56px;
   height: auto;
-  margin-bottom: .25em;
+  margin-bottom: 0.25em;
 }
 
-/* Strong contrast for upgrade links */
 .upgrade-grid a {
-  color: #181638; /* Deep navy blue passes contrast on light blue */
+  color: #181638;
   font-size: 1em;
   font-weight: 600;
   text-decoration: underline;
-  margin-top: .10em;
+  margin-top: 0.10em;
+  transition: color 0.2s ease;
 }
 
-/* Footer styles */
+.upgrade-grid a:hover,
+.upgrade-grid a:focus {
+  color: #0066cc;
+}
+
+
+/* ==========================================
+   FOOTER STYLES
+   ========================================== */
 footer {
+  background: #fff;
   text-align: center;
+  color: #222;
+  padding: 12px 0 6px 0;
+  font-size: 1rem;
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid #e4e5ef;
+  margin-top: 30px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.97em;
   color: #63637c;
-  font-size: .97em;
-  margin: 2.1em 0 .8em 0;
-  letter-spacing: 0.03em;
 }
 
-/* Desktop/Large screen fixes */
-@media (min-width: 800px) {
-  .home-content { padding-bottom: 40px; }
-  .header-bar, nav, h1, .main-row, .upgrades {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
-  .main-row {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 3rem;
-    align-items: flex-start;
-  }
-  .delorean-promo, .reviews {
-    width: 48%;
-    margin: 0;
-  }
-  .delorean-img {
-    margin-left: 0;
-    margin-right: 0;
-    width: 255px;
-    max-width: 320px;
-  }
-  .upgrade-grid { grid-template-columns: repeat(4, 1fr); gap: 1.1em; }
+#footer-error-link {
+  display: block;
+  margin-top: 4px;
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 0.9em;
 }
 
-/* === VEHICLE DETAIL VIEW STYLES === */
+#footer-error-link:hover {
+  text-decoration: underline;
+}
+
+.footer-bg {
+  display: none;
+}
+
+
+/* ==========================================
+   VEHICLE DETAIL VIEW STYLES
+   ========================================== */
 .vehicle-detail {
   display: flex;
   flex-direction: column;
@@ -267,7 +352,7 @@ footer {
   font-size: 2.11rem;
   font-weight: 700;
   color: #1e1c31;
-  margin: .3em 0 .3em 0;
+  margin: 0.3em 0 0.3em 0;
 }
 
 .vehicle-info .price {
@@ -275,12 +360,12 @@ footer {
   font-weight: 900;
   color: #003D60;
   margin-top: -1em;
-  margin-bottom: .35em;
+  margin-bottom: 0.35em;
 }
 
 .vehicle-info p {
   font-size: 1.09rem;
-  margin: .26em 0;
+  margin: 0.26em 0;
   color: #1A2259;
 }
 
@@ -288,30 +373,6 @@ footer {
   color: #005A70;
 }
 
-/* Responsive stacking for smaller screens */
-@media (min-width: 800px) {
-  .vehicle-detail {
-    flex-direction: row;
-    gap: 2.5rem;
-    align-items: stretch;
-  }
-  .vehicle-img,
-  .vehicle-info {
-    width: 50%;
-    min-width: 330px;
-  }
-}
-@media (max-width: 799px) {
-  .vehicle-detail {
-    flex-direction: column;
-    padding: 1em 0.8em;
-  }
-  .vehicle-img img {
-    max-width: 100%;
-  }
-}
-
-/* Notice styles (when vehicle not found) */
 .notice {
   color: #d32f2f;
   text-align: center;
@@ -320,7 +381,10 @@ footer {
   margin: 2.8em 0;
 }
 
-/* === VEHICLE GRID FOR CLASSIFICATION VIEW === */
+
+/* ==========================================
+   VEHICLE GRID FOR CLASSIFICATION VIEW
+   ========================================== */
 .vehicle-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -338,14 +402,15 @@ footer {
   border: 2px solid #dededf;
   border-radius: 11px;
   box-shadow: 0 2px 11px #eaf3ff33;
-  padding: 1.2rem .9rem 1.2rem .9rem;
+  padding: 1.2rem 0.9rem 1.2rem 0.9rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: box-shadow 0.25s;
 }
 
-.grid-item:hover, .grid-item:focus-within {
+.grid-item:hover,
+.grid-item:focus-within {
   box-shadow: 0 3px 24px #bde4ff44;
   border-color: #aee2fa;
 }
@@ -355,20 +420,20 @@ footer {
   max-width: 90%;
   height: auto;
   border-radius: 9px;
-  margin-bottom: .77em;
+  margin-bottom: 0.77em;
   box-shadow: 2px 5px 12px #eaf3ff88;
   border: 1.5px solid #c6d0e3;
 }
 
 .grid-item .namePrice {
-  margin-top: .3em;
+  margin-top: 0.3em;
   text-align: center;
 }
 
 .grid-item h2 {
   font-size: 1.24rem;
   font-weight: 650;
-  margin-bottom: .18em;
+  margin-bottom: 0.18em;
   color: #181638;
 }
 
@@ -379,7 +444,8 @@ footer {
   transition: color 0.2s;
 }
 
-.grid-item a:hover, .grid-item a:focus {
+.grid-item a:hover,
+.grid-item a:focus {
   color: #0f8bb7;
   border-bottom: 2px solid #0f8bb7;
 }
@@ -388,73 +454,172 @@ footer {
   color: #00728d;
   font-size: 1.12rem;
   font-weight: bold;
-  margin-top: .13em;
+  margin-top: 0.13em;
 }
 
-@media (max-width: 650px) {
+
+/* ==========================================
+   FLASH MESSAGES AND ALERTS
+   ========================================== */
+.flash-message {
+  background: #faebcc;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+}
+
+.alert {
+  padding: 1rem;
+  margin: 1rem 2.2rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-info {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+ul.notice {
+  list-style: none;
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 1rem;
+  margin: 1rem 2.2rem;
+  border-radius: 4px;
+}
+
+ul.notice li {
+  margin-bottom: 0.5rem;
+}
+
+ul.notice li:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ==========================================
+   AUTH MAIN CONTENT WRAPPER
+   ========================================== */
+.auth-main-content {
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 0;
+  max-width: 930px;
+  margin: 34px auto 24px auto;
+  box-shadow: none;
+  padding-bottom: 30px;
+  position: relative;
+  z-index: 10;
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN - DESKTOP (800px+)
+   ========================================== */
+@media (min-width: 800px) {
+  .home-content {
+    padding-bottom: 40px;
+  }
+
+  header,
+  nav,
+  h1,
+  .main-row,
+  .upgrades {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .main-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+
+  .delorean-promo,
+  .reviews {
+    width: 48%;
+    margin: 0;
+  }
+
+  .delorean-img {
+    margin-left: 0;
+    margin-right: 0;
+    width: 255px;
+    max-width: 320px;
+  }
+
+  .upgrade-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1em;
+  }
+
+  .vehicle-detail {
+    flex-direction: row;
+    gap: 2.5rem;
+    align-items: stretch;
+  }
+
+  .vehicle-img,
+  .vehicle-info {
+    width: 50%;
+    min-width: 330px;
+  }
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN - MOBILE (max 799px)
+   ========================================== */
+@media (max-width: 799px) {
+  .home-content {
+    margin: 15px auto;
+    padding: 0 0 20px 0;
+  }
+
+  header,
+  nav,
+  h1,
+  .main-row,
+  .upgrades {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .vehicle-detail {
+    flex-direction: column;
+    padding: 1em 0.8em;
+  }
+
+  .vehicle-img img {
+    max-width: 100%;
+  }
+
   .vehicle-grid {
     grid-template-columns: 1fr;
     padding: 1.2rem 0.5rem;
     gap: 1.2rem;
   }
-  .grid-item img { width: 175px; }
-}
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  background-color: #fff;
-}
-.logo a {
-  font-size: 2rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: #222;
-}
-nav a {
-  font-size: 1.1rem;
-  text-decoration: none;
-  color: #222;
-  margin-left: 2rem;
-  padding: .25rem .75rem;
-  border-radius: 8px;
-  transition: background .2s;
-}
-nav a:hover {
-  background: #25a9e0;
-  color: #fff;
-}
-
-.footer-bg {
-    height: 16px;
-    width: 100%;
-    background-image: url('/images/site/checkerboard.jpg');
-    background-repeat: repeat-x;
-    background-size: contain;
-    margin: 0;
-    padding: 0;
-}
-footer {
-    background: none;
-    text-align: center;
-    color: #222;
-    padding: 12px 0 6px 0;
-    font-size: 1rem;
-    position: relative;
-    z-index: 2;
-}
-#footer-error-link {
-    display: block;
-    margin-top: 4px;
-}
-
-.flash-message {
-    background: #faebcc;
-    color: #856404;
-    border: 1px solid #ffeeba;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    border-radius: 0.5rem;
+  .grid-item img {
+    width: 175px;
+  }
 }

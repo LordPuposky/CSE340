@@ -1,6 +1,7 @@
 const utilities = require("../utilities/")
 const accountModel = require("../models/account-model")
 
+
 /* ****************************************
 *  Deliver login view
 * *************************************** */
@@ -12,6 +13,7 @@ async function buildLogin(req, res, next) {
         errors: null,
     })
 }
+
 
 /* ****************************************
 *  Deliver registration view
@@ -25,6 +27,7 @@ async function buildRegister(req, res, next) {
     })
 }
 
+
 /* ****************************************
 *  Process Registration
 *  Unit 4, process registration activity
@@ -34,8 +37,10 @@ async function registerAccount(req, res) {
     const {
         account_firstname,
         account_lastname,
-        account_email, account_password
+        account_email,
+        account_password
     } = req.body
+
 
     const regResult = await accountModel.registerAccount(
         account_firstname,
@@ -43,6 +48,7 @@ async function registerAccount(req, res) {
         account_email,
         account_password
     )
+
 
     if (regResult) {
         req.flash(
@@ -64,4 +70,16 @@ async function registerAccount(req, res) {
     }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount }
+
+
+async function buildProfile(req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+    })
+}
+
+
+module.exports = { buildLogin, buildRegister, registerAccount, buildProfile }

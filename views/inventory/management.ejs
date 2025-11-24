@@ -1,12 +1,22 @@
-<h1>Vehicle Management</h1>
-<% if (message) { %>
-    <div class="flash-message">
-        <%= message %>
-    </div>
-    <% } %>
-        <nav>
-            <ul>
-                <li><a href="/inv/add-classification">Add New Classification</a></li>
-                <li><a href="/inv/add-inventory">Add New Vehicle</a></li>
-            </ul>
-        </nav>
+<%- include("../partials/head") %>
+<%- include('../partials/header') %>
+
+<div class="home-content">
+    <%- include('../partials/nav') %>
+
+    <main>
+        <h1>Vehicle Management</h1>
+
+        <% if (typeof message !== 'undefined' && message && message.length > 0) { %>
+            <div class="flash-message">
+                <%= message[0] %>
+            </div>
+        <% } %>
+
+        <ul>
+            <li><a href="/inv/add-classification">Add New Classification</a></li>
+            <li><a href="/inv/add-inventory">Add New Vehicle</a></li>
+        </ul>
+    </main>
+</div>
+<%- include('../partials/footer') %>

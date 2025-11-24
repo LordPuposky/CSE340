@@ -1,0 +1,360 @@
+/* ==========================================
+   INVENTORY MANAGEMENT - FORMS & STYLING
+   ========================================== */
+
+
+/* Main form container - cyan background */
+main form {
+    background: #00bfda !important;
+    border: 2px solid #0099aa !important;
+    padding: 2.2rem !important;
+    margin-left: 2.2rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    max-width: 600px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-right: auto !important;
+}
+
+
+/* Form labels - white text */
+main form label {
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    display: block !important;
+    margin-bottom: 0.5rem !important;
+    background: transparent !important;
+}
+
+
+/* Form inputs, selects, textareas */
+main form input,
+main form select,
+main form textarea {
+    background: #fff !important;
+    color: #333 !important;
+    border: 1.5px solid #0099aa !important;
+    width: 100% !important;
+    padding: 0.65rem 0.75rem !important;
+    margin-bottom: 1.2rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    font-family: Arial, sans-serif !important;
+}
+
+
+/* Textarea specific */
+main form textarea {
+    min-height: 120px !important;
+    resize: vertical !important;
+}
+
+
+/* Focus states */
+main form input:focus,
+main form select:focus,
+main form textarea:focus {
+    outline: none !important;
+    border-color: #005577 !important;
+    box-shadow: 0 0 5px rgba(0, 153, 170, 0.5) !important;
+    background: #fff !important;
+}
+
+
+/* Placeholders */
+main form input::placeholder,
+main form textarea::placeholder {
+    color: #999 !important;
+    opacity: 0.8 !important;
+}
+
+
+/* Input validation - VALID (green) */
+main form input:valid,
+main form textarea:valid {
+    border-color: #28a745 !important;
+    background: #f0fff4 !important;
+}
+
+
+/* Input validation - INVALID (red) */
+main form input:invalid:not(:placeholder-shown),
+main form textarea:invalid:not(:placeholder-shown) {
+    border-color: #dc3545 !important;
+    background: #fff5f5 !important;
+}
+
+
+/* Fieldset and legend */
+main form fieldset {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 0 1.2rem 0 !important;
+}
+
+
+main form legend {
+    display: none !important;
+}
+
+
+/* Form buttons */
+main form button {
+    background: #a8a8a8 !important;
+    color: #fff !important;
+    border: 1px solid #888 !important;
+    width: 100% !important;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    margin-bottom: 0.5rem !important;
+    transition: background 0.2s ease !important;
+}
+
+
+main form button:hover {
+    background: #929292 !important;
+}
+
+
+main form button:active {
+    background: #7c7c7c !important;
+}
+
+
+main form button:focus {
+    outline: 2px solid #005577 !important;
+    outline-offset: 2px !important;
+}
+
+
+/* Select dropdown icon */
+main form select {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 16px !important;
+    padding-right: 2.5rem !important;
+}
+
+
+/* Form requirement hints */
+.form-requirement-hint {
+    color: #fff !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    padding: 0.75rem !important;
+    border-radius: 3px !important;
+    margin-bottom: 1rem !important;
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+    font-style: italic !important;
+}
+
+
+/* ==========================================
+   VEHICLE GRID & ACTIONS
+   ========================================== */
+
+/* Vehicle grid */
+.vehicle-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    gap: 2rem !important;
+    padding: 2rem !important;
+}
+
+
+/* Grid item */
+.grid-item {
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+
+.grid-item:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+
+/* Grid item image */
+.grid-item img {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+
+/* Grid item content */
+.grid-item h2 {
+    margin: 1rem !important;
+    font-size: 1.3rem !important;
+}
+
+
+.grid-item h2 a {
+    color: #0099aa !important;
+    text-decoration: none !important;
+    transition: color 0.2s !important;
+}
+
+
+.grid-item h2 a:hover {
+    color: #005577 !important;
+    text-decoration: underline !important;
+}
+
+
+/* Price display */
+.grid-item .price {
+    display: block !important;
+    padding: 0 1rem !important;
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    color: #0099aa !important;
+    margin-bottom: 1rem !important;
+}
+
+
+/* Actions section */
+.actions {
+    display: flex !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+
+.actions a,
+.delete-form {
+    flex: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* Delete form styling */
+.delete-form {
+    display: flex !important;
+}
+
+
+.delete-form button {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+
+/* Button styles for actions */
+.actions .btn-edit,
+.actions .btn-delete {
+    padding: 10px 16px !important;
+    border-radius: 4px !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    transition: background-color 0.3s !important;
+    font-weight: 500 !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 0.9rem !important;
+    min-height: 36px !important;
+}
+
+
+/* EDIT BUTTON - CYAN (WCAG AA: 4.83:1) */
+.actions .btn-edit {
+    background-color: #00bfda !important;
+    color: #ffffff !important;
+}
+
+
+.actions .btn-edit:hover {
+    background-color: #0099aa !important;
+}
+
+
+.actions .btn-edit:active {
+    background-color: #007a8c !important;
+}
+
+
+/* DELETE BUTTON - ROJO (WCAG AA: 5.47:1) */
+.actions .btn-delete {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+
+.actions .btn-delete:hover {
+    background-color: #c82333 !important;
+}
+
+
+.actions .btn-delete:active {
+    background-color: #bd2130 !important;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 1024px) {
+    .vehicle-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+    }
+}
+
+
+@media (max-width: 799px) {
+    main form {
+        margin-left: 1.5rem !important;
+        margin-right: 1.5rem !important;
+        max-width: none !important;
+    }
+
+    .vehicle-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        padding: 1rem !important;
+    }
+}
+
+
+@media (max-width: 600px) {
+    main form {
+        padding: 1.5rem !important;
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+
+    .vehicle-grid {
+        gap: 1rem !important;
+        padding: 0.5rem !important;
+    }
+
+    .actions {
+        flex-direction: column !important;
+    }
+
+    .actions .btn-edit,
+    .actions .btn-delete {
+        width: 100% !important;
+    }
+}

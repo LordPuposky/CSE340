@@ -1,44 +1,96 @@
+/* ==========================================
+   REGISTER PAGE - OVERRIDE BACKGROUND
+   ========================================== */
+
+/* Keep checkerboard background for auth pages */
+body.auth-page {
+    background: url('/images/site/checkerboard.jpg') fixed !important;
+    background-repeat: repeat !important;
+    background-size: 64px 64px !important;
+    background-attachment: fixed !important;
+}
+
+/* Remove white background from main content container */
+.auth-main-content {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* ==========================================
+   REGISTER LAYOUT - CENTER EVERYTHING
+   ========================================== */
+.register-bg {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.register-bg main {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-bg main h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #000;
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+    font-family: 'Arial Rounded MT Bold', Arial, Helvetica, sans-serif;
+}
+
+
+/* ==========================================
+   REGISTER CONTAINER - BLUE BOX
+   ========================================== */
 .register-container {
-    max-width: 340px;
-    margin: 3rem auto;
+    width: 100%;
+    max-width: 450px;
     background: #25a9e0;
-    padding: 2rem;
+    padding: 2rem 2.5rem;
     border-radius: 14px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
-    border: 3px solid #14aac9;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 3px solid #1a9dd1;
 }
 
-/* MODIFIED: Style for password requirements message */
-.register-container .password-requirements {
-    margin-bottom: 0.85rem;
-    color: #005A70;
-    font-weight: 600;
-    background: #e9f9ff;
-    border-radius: 7px;
-    padding: 0.45rem 0.5rem;
-    font-size: 0.98em;
-}
 
+/* ==========================================
+   REGISTER FORM STYLES
+   ========================================== */
 .register-container form fieldset {
     border: 1px solid #fff;
     padding: 1rem 1rem 0.5rem 1rem;
     border-radius: 10px;
     background: transparent;
+    margin-bottom: 1rem;
 }
 
 .register-container legend {
     font-size: 1.1rem;
     font-style: italic;
-    color: #333;
-    margin-bottom: .7rem;
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
     letter-spacing: 0.5px;
+    padding: 0 0.5rem;
 }
 
 .register-container label {
     display: block;
     margin: 1.1rem 0 0.35rem;
     font-size: 1.15rem;
-    color: #111;
+    color: #000;
     font-weight: bold;
 }
 
@@ -50,91 +102,149 @@
     border: 2px solid #eee;
     font-size: 1rem;
     background: #fff;
+    box-sizing: border-box;
+}
+
+.register-container input:focus {
+    outline: 2px solid #0066cc;
+    border-color: #0066cc;
 }
 
 .register-container small {
     display: block;
     margin-bottom: 1rem;
-    color: #222;
+    color: #000;
     font-size: 0.95em;
 }
 
-.register-container button[type=button] {
+
+/* ==========================================
+   PASSWORD REQUIREMENTS TEXT
+   ========================================== */
+.register-container .password-requirements {
+    margin-bottom: 0.85rem;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+.register-container button[type="button"] {
     margin-bottom: 1rem;
     margin-right: 0.6rem;
-    background: #222;
+    background: #6b6b6b;
     color: #fff;
     border: none;
     border-radius: 12px;
     padding: 0.6rem 1.1rem;
     font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
-.register-container button[type=submit] {
+.register-container button[type="button"]:hover {
+    background: #555;
+}
+
+.register-container button[type="submit"] {
     background: #25ad5e;
     color: #fff;
     border: none;
     border-radius: 12px;
     padding: 0.6rem 1.1rem;
     font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     margin-bottom: 0.7rem;
+    transition: background 0.2s ease;
 }
 
+.register-container button[type="submit"]:hover {
+    background: #1e8d4c;
+}
+
+
+/* ==========================================
+   LOGIN LINK
+   ========================================== */
 .login-link {
     text-align: center;
     margin-top: 1.5rem;
     font-size: 1.08rem;
+    color: #000;
 }
 
 .login-link a {
-    color: #2546b2;
+    color: #1a4d8f;
     text-decoration: underline;
     font-weight: bold;
 }
 
+.login-link a:hover {
+    color: #0d3468;
+}
+
+
+/* ==========================================
+   FLASH MESSAGES
+   ========================================== */
 .flash-message {
     background: #fffbea;
     border: 2px solid #ffe39e;
-    color: #222;
-    padding: .6rem 1rem;
+    color: #856404;
+    padding: 0.6rem 1rem;
     border-radius: 8px;
     margin-bottom: 1rem;
     text-align: center;
+    font-weight: 600;
 }
 
-body {
-    background: #fff !important;
-    background-image: none !important;
-}
 
-.footer-bg {
-    display: none !important;
-}
-
-footer {
-    background: #fff !important;
-    background-image: none !important;
-    text-align: center;
-    color: #222;
-    padding: 16px 0;
-    font-size: 1rem;
-    margin: 0;
-}
-
-#footer-error-link {
-    display: block;
-    margin-top: 6px;
-    color: #2546b2;
-}
-
-/* ADDED: Visual feedback for required valid/invalid inputs */
+/* ==========================================
+   INPUT VALIDATION STYLES
+   ========================================== */
 .register-container input:required:valid {
     border-color: #27ae60;
 }
 
-.register-container input:required:invalid,
-.register-container input:focus:invalid {
+.register-container input:required:invalid:not(:placeholder-shown) {
     border-color: #e74c3c;
+}
+
+
+/* ==========================================
+   HIDE NAV ON REGISTER PAGE
+   ========================================== */
+.register-bg nav {
+    display: none;
+}
+
+
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+@media (max-width: 600px) {
+    .register-container {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+
+    .register-bg main h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .register-container label {
+        font-size: 1.05rem;
+    }
+
+    .register-container input {
+        font-size: 0.95rem;
+    }
 }

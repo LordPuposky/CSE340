@@ -1,11 +1,46 @@
-<h1>Add New Classification</h1>
-<% if (message) { %>
-    <div class="flash-message">
-        <%= message %>
+<%- include("../partials/head") %>
+<%- include('../partials/header') %>
+
+    <div class="home-content">
+        <%- include('../partials/nav') %>
+
+            <main>
+                <h1>Add New Classification</h1>
+
+                <% if (typeof errors !=='undefined' && errors.length> 0) { %>
+                    <ul class="notice">
+                        <% errors.forEach(error=> { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
+
+                        <% if (typeof message !=='undefined' && message) { %>
+                            <div class="flash-message">
+                                <%= message %>
+                            </div>
+                            <% } %>
+
+                                <form action="/inv/add-classification" method="post">
+                                    <fieldset>
+                                        <legend>Classification Information</legend>
+
+                                        <div class="form-requirement-hint">
+                                            FIELD IS REQUIRED.<br>
+                                            NAME MUST BE ALPHABETIC CHARACTERS ONLY.
+                                        </div>
+
+                                        <label for="classification_name">Classification Name</label>
+                                        <input type="text" id="classification_name" name="classification_name"
+                                            maxlength="30" placeholder="e.g., Sedan, SUV, Truck"
+                                            value="<%= typeof classification_name !== 'undefined' ? classification_name : '' %>"
+                                            pattern="[A-Za-z\s]+" required>
+
+                                        <button type="submit">Add Classification</button>
+                                    </fieldset>
+                                </form>
+            </main>
     </div>
-    <% } %>
-        <form action="/inv/add-classification" method="post">
-            <label for="classification_name">Classification Name</label>
-            <input type="text" id="classification_name" name="classification_name" maxlength="30" required>
-            <button type="submit">Add Classification</button>
-        </form>
+    <%- include('../partials/footer') %>

@@ -11,12 +11,14 @@ const utilities = require("../utilities")
 // Login view
 router.get(
     "/login",
-    utilities.handleErrors(accountController.buildLogin))
+    utilities.handleErrors(accountController.buildLogin)
+)
 
 // Register view
 router.get(
     "/register",
-    utilities.handleErrors(accountController.buildRegister))
+    utilities.handleErrors(accountController.buildRegister)
+)
 
 // Register process
 router.post(
@@ -26,5 +28,10 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
 )
 
+// Profile view
+router.get(
+    "/profile",
+    utilities.handleErrors(accountController.buildProfile)
+)
 
 module.exports = router

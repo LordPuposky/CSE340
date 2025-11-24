@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-    <div class="home-content">
-        <nav>
-        <%- nav %>
-        </nav>
+<%- include("../partials/head") %>
+<div class="home-content">
+    <%- include('../partials/header') %>
+    <%- include('../partials/nav') %>
+
+    <main>
         <%- detail %>
-    </div>
-</body>
-</html>
+    </main>
+</div>
+<%- include('../partials/footer') %>

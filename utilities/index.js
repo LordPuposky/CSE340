@@ -1,6 +1,7 @@
 const invModel = require("../models/inventory-model");
 const Util = {};
 
+
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
@@ -24,6 +25,7 @@ Util.getNav = async function () {
     return list;
 };
 
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
@@ -31,6 +33,7 @@ Util.getNav = async function () {
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) =>
     Promise.resolve(fn(req, res, next)).catch(next);
+
 
 /* **************************************
  * Build the classification view HTML
@@ -40,8 +43,8 @@ Util.buildClassificationGrid = async function (data) {
     if (data.length > 0) {
         grid = '<div class="vehicle-grid">';
         data.forEach((vehicle) => {
-            // Price formatting with dollar and commas
-            const formattedPrice = `$${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}`;
+            // Price formatting with dollar and NO decimals
+            const formattedPrice = `$${new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(vehicle.inv_price)}`;
             grid += `<div class="grid-item">
                 <a href="../../inv/detail/${vehicle.inv_id}" title="View ${vehicle.inv_make} ${vehicle.inv_model} details">
                     <img src="${vehicle.inv_thumbnail}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
@@ -64,6 +67,7 @@ Util.buildClassificationGrid = async function (data) {
     return grid;
 };
 
+
 /* **********************************************
  *  Build the vehicle detail view HTML
  * ******************************************** */
@@ -71,10 +75,11 @@ Util.buildDetailView = async function (vehicle) {
     if (!vehicle) {
         return '<p class="notice">Sorry, we could not find that vehicle.</p>';
     }
-    // Format price and mileage with commas and $ (USD)
-    const formattedPrice = "$" + new Intl.NumberFormat("en-US").format(vehicle.inv_price);
+    // Format price and mileage with commas and $ (USD) - NO decimals in price
+    const formattedPrice = "$" + new Intl.NumberFormat("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(vehicle.inv_price);
     const formattedMileage =
-        new Intl.NumberFormat("en-US").format(vehicle.inv_miles) + " miles";
+        new Intl.NumberFormat("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(vehicle.inv_miles) + " miles";
+
 
     // Show everything with accessibility
     let detail = `
@@ -94,6 +99,31 @@ Util.buildDetailView = async function (vehicle) {
     `;
     return detail;
 };
+
+
+/* ****************************************
+ * Build classification select list for forms
+ * *************************************** */
+Util.buildClassificationList = async function (classification_id = null) {
+    try {
+        let data = await invModel.getClassifications()
+        let classificationList = '<select name="classification_id" id="classificationList" required>'
+        classificationList += "<option value=''>Choose a Classification</option>"
+        data.forEach((row) => {
+            classificationList += '<option value="' + row.classification_id + '"'
+            if (classification_id != null && row.classification_id == classification_id) {
+                classificationList += " selected "
+            }
+            classificationList += ">" + row.classification_name + "</option>"
+        })
+        classificationList += "</select>"
+        return classificationList
+    } catch (error) {
+        console.error("buildClassificationList error " + error)
+        return ""
+    }
+}
+
 
 /* ****************************************
  * Export utility functions

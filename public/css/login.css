@@ -1,134 +1,262 @@
-.login-container {
-    max-width: 340px;
-    margin: 3rem auto;
-    background: #25a9e0;
-    padding: 2rem;
-    border-radius: 14px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
-    border: 3px solid #14aac9;
-    position: relative;
+/* ==========================================
+   LOGIN PAGE - FORCE OVERRIDE ALL STYLES
+   ========================================== */
+
+/* CRITICAL: Override body background */
+body.auth-page {
+    background: url('/images/site/checkerboard.jpg') fixed !important;
+    background-repeat: repeat !important;
+    background-size: 64px 64px !important;
+    background-attachment: fixed !important;
+    background-color: transparent !important;
 }
 
-/* MODIFIED: Style for password requirements message */
-.login-container .password-requirements {
-    margin-bottom: 0.85rem;
-    color: #005A70;
-    font-weight: 600;
-    background: #e9f9ff;
-    border-radius: 7px;
-    padding: 0.45rem 0.5rem;
-    font-size: 0.98em;
+/* Remove all container backgrounds and borders */
+body.auth-page .home-content,
+body.auth-page .auth-main-content {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
+/* Keep header visible but with proper background */
+body.auth-page header {
+    background: #fff !important;
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+/* Keep nav visible but with proper styling */
+body.auth-page nav {
+    background: transparent !important;
+    position: relative !important;
+    z-index: 100 !important;
+    margin: 0 !important;
+}
+
+
+/* ==========================================
+   LOGIN LAYOUT - CENTER EVERYTHING
+   ========================================== */
+.login-bg {
+    min-height: calc(100vh - 250px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 2rem 1rem !important;
+    background: transparent !important;
+    width: 100% !important;
+}
+
+.login-bg main {
+    width: 100% !important;
+    max-width: 500px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+}
+
+.login-bg main h1 {
+    font-size: 2.5rem !important;
+    font-weight: bold !important;
+    color: #000 !important;
+    margin: 0 0 1.5rem 0 !important;
+    text-align: center !important;
+    font-family: 'Arial Rounded MT Bold', Arial, Helvetica, sans-serif !important;
+    width: 100% !important;
+}
+
+
+/* ==========================================
+   LOGIN CONTAINER - SINGLE BLUE BOX
+   ========================================== */
+.login-bg .login-container,
+div.login-bg div.login-container,
+body.auth-page .login-container {
+    width: 100% !important;
+    max-width: 450px !important;
+    background: #25a9e0 !important;
+    padding: 2rem 2.5rem !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    border: 3px solid #1a9dd1 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* CRITICAL: Remove any form-container styles from forms.css */
+.login-container .form-container {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+
+/* ==========================================
+   LOGIN FORM STYLES
+   ========================================== */
 .login-form label {
-    display: block;
-    margin: 1.1rem 0 0.35rem;
-    font-size: 1.15rem;
-    color: #111;
-    font-weight: bold;
+    display: block !important;
+    margin: 1.2rem 0 0.4rem !important;
+    font-size: 1.2rem !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+}
+
+.login-form label:first-of-type {
+    margin-top: 0 !important;
 }
 
 .login-form input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    border: 2px solid #eee;
-    font-size: 1rem;
-    background: #fff;
+    width: 100% !important;
+    padding: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+    border-radius: 6px !important;
+    border: 2px solid #ddd !important;
+    font-size: 1rem !important;
+    background: #fff !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    box-sizing: border-box !important;
 }
 
-.login-form small {
-    display: block;
-    margin-bottom: 1rem;
-    color: #222;
-    font-size: 0.92em;
+.login-form input:focus {
+    outline: 2px solid #0066cc !important;
+    border-color: #0066cc !important;
+    box-shadow: none !important;
 }
 
-.login-form button[type=button] {
-    margin-bottom: 1rem;
-    margin-right: 0.6rem;
-    background: #222;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 0.6rem 1.1rem;
-    font-size: 1rem;
-    cursor: pointer;
+
+/* ==========================================
+   PASSWORD REQUIREMENTS TEXT
+   ========================================== */
+.login-container .password-requirements {
+    margin: -0.3rem 0 1rem 0 !important;
+    color: #000 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
+    font-style: italic !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
 }
 
-.login-form button[type=submit] {
-    background: #25ad5e;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 0.6rem 1.1rem;
-    font-size: 1rem;
-    cursor: pointer;
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+.login-form button[type="button"],
+.login-form button[type="submit"] {
+    width: 100% !important;
+    margin-bottom: 0.8rem !important;
+    background: #6b6b6b !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background 0.2s ease !important;
 }
 
+.login-form button[type="button"]:hover,
+.login-form button[type="submit"]:hover {
+    background: #555 !important;
+}
+
+.login-form button[type="button"]:active,
+.login-form button[type="submit"]:active {
+    transform: scale(0.98) !important;
+}
+
+
+/* ==========================================
+   SIGNUP LINK
+   ========================================== */
 .signup-link {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 1.06rem;
+    text-align: center !important;
+    margin-top: 1.5rem !important;
+    font-size: 1.05rem !important;
+    color: #000 !important;
 }
 
 .signup-link a {
-    color: #2546b2;
-    text-decoration: underline;
-    font-weight: bold;
+    color: #1a4d8f !important;
+    text-decoration: underline !important;
+    font-weight: bold !important;
 }
 
-.flash-message {
-    background: #fffbea;
-    border: 2px solid #ffe39e;
-    color: #222;
-    padding: .6rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    text-align: center;
+.signup-link a:hover {
+    color: #0d3468 !important;
 }
 
-.login-bg {
-    background: #fff !important;
-    min-height: 100vh;
+
+/* ==========================================
+   FLASH MESSAGES
+   ========================================== */
+.login-bg .flash-message,
+.login-bg .notice {
+    background: #fffbea !important;
+    border: 2px solid #ffe39e !important;
+    color: #856404 !important;
+    padding: 0.8rem 1rem !important;
+    border-radius: 8px !important;
+    margin: 0 auto 1.5rem auto !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+    max-width: 450px !important;
+    width: 100% !important;
 }
 
-.login-footer {
-    background: #fff !important;
+
+/* ==========================================
+   FOOTER ON LOGIN PAGE
+   ========================================== */
+body.auth-page footer {
+    background: transparent !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    padding: 1rem !important;
+    border-top: none !important;
 }
 
-body {
-    background: #fff !important;
-    background-image: none !important;
-}
 
-.footer-bg {
-    display: none !important;
-}
+/* ==========================================
+   RESPONSIVE - MOBILE
+   ========================================== */
+@media (max-width: 600px) {
+    .login-container {
+        max-width: 90% !important;
+        padding: 1.5rem !important;
+    }
 
-footer {
-    background: #fff !important;
-    background-image: none !important;
-    text-align: center;
-    color: #222;
-    padding: 16px 0;
-    font-size: 1rem;
-    margin: 0;
-}
+    .login-bg main h1 {
+        font-size: 2rem !important;
+        margin-bottom: 1rem !important;
+    }
 
-#footer-error-link {
-    display: block;
-    margin-top: 6px;
-    color: #2546b2;
-}
+    .login-form label {
+        font-size: 1.1rem !important;
+    }
 
-/* ADDED: Visual feedback for required valid/invalid inputs */
-.login-container input:required:valid {
-    border-color: #27ae60;
-}
-
-.login-container input:required:invalid,
-.login-container input:focus:invalid {
-    border-color: #e74c3c;
+    .login-form input {
+        font-size: 0.95rem !important;
+    }
 }

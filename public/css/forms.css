@@ -1,0 +1,123 @@
+/* ==========================================
+   FORM STYLES - AUTH & INVENTORY
+   ========================================== */
+
+/* Auth form container */
+.form-container {
+    background: #00bfda;
+    border-radius: 0;
+    padding: 2.2rem;
+    margin-left: 2.2rem;
+    margin-right: auto;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    max-width: 450px;
+    box-shadow: none;
+    border: 2px solid #0099aa;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    margin-bottom: 1.2rem;
+    border: 1.5px solid #0099aa;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    outline: none;
+    border-color: #005577;
+    box-shadow: 0 0 5px rgba(0, 153, 170, 0.5);
+}
+
+.form-container button {
+    background: #a8a8a8;
+    color: #fff;
+    border: 1px solid #888;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s ease;
+    margin-bottom: 0.5rem;
+}
+
+.form-container button:hover {
+    background: #929292;
+}
+
+.form-container button:active {
+    background: #7c7c7c;
+}
+
+.form-container button:focus {
+    outline: 2px solid #005577;
+    outline-offset: 2px;
+}
+
+.form-container fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 1.2rem 0;
+}
+
+.form-container legend {
+    display: none;
+}
+
+.form-container .error-message {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.password-requirements {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.login-link,
+.signup-link {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0 2.2rem;
+    color: #333;
+}
+
+.login-link a,
+.signup-link a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover,
+.signup-link a:hover {
+    text-decoration: underline;
+    color: #004999;
+}

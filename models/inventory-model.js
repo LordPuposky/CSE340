@@ -118,12 +118,27 @@ async function deleteInventory(inv_id) {
     }
 }
 
+/* ***************************
+ *  Add a new classification
+ * ************************** */
+async function addClassification(classification_name) {
+    try {
+        const sql = "INSERT INTO public.classification (classification_name) VALUES ($1) RETURNING *"
+        const data = await pool.query(sql, [classification_name])
+        return data.rows[0]
+    } catch (error) {
+        console.error("addClassification error " + error)
+        throw error
+    }
+}
 
 module.exports = {
     getClassifications,
     getInventoryByClassificationId,
     getInventoryById,
     addInventory,
+    addClassification,
     updateInventory,
     deleteInventory
 }
+
