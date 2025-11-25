@@ -6,11 +6,14 @@
 /* ***********************
  * Require Statements
  *************************/
+
+const cookieParser = require("cookie-parser");
 const express = require("express")
 const env = require("dotenv").config()
 const path = require("path")
 const session = require("express-session")
 const pool = require('./database/')
+
 
 /* ***********************
  * Create Express App
@@ -36,6 +39,7 @@ app.use(express.static(path.join(__dirname, "public")))
 */
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 // Session middleware
 app.use(session({
@@ -48,6 +52,8 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
+
+app.use(utilities.checkJWTToken)
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -89,7 +95,7 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  
+
   let message
   if (err.status == 404) {
     message = err.message

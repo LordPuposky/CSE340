@@ -3,20 +3,27 @@
 
 <div class="home-content">
     <%- include('../partials/nav') %>
-
     <main>
-        <h1>Vehicle Management</h1>
-
+        <h1>Account Management</h1>
         <% if (typeof message !== 'undefined' && message && message.length > 0) { %>
             <div class="flash-message">
                 <%= message[0] %>
             </div>
         <% } %>
-
+        <% if (typeof errors !== 'undefined' && errors && errors.length > 0) { %>
+            <div class="errors">
+                <%= errors %>
+            </div>
+        <% } %>
+        
+        <p>You're logged in.</p>
+        
         <ul>
             <li><a href="/inv/add-classification">Add New Classification</a></li>
             <li><a href="/inv/add-inventory">Add New Vehicle</a></li>
         </ul>
+
     </main>
 </div>
+
 <%- include('../partials/footer') %>

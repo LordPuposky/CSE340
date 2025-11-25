@@ -34,4 +34,15 @@ router.get(
     utilities.handleErrors(accountController.buildProfile)
 )
 
+// Process the login request
+router.post(
+    "/login",
+    regValidate.loginRules(),
+    regValidate.checkLoginData,
+    utilities.handleErrors(accountController.accountLogin)
+)
+
+router.get("/", utilities.handleErrors(accountController.buildAccountManagement));
+
+
 module.exports = router
