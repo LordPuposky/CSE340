@@ -42,7 +42,7 @@ router.post(
     utilities.handleErrors(accountController.accountLogin)
 )
 
-router.get("/", utilities.handleErrors(accountController.buildAccountManagement));
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
 
 
 module.exports = router

@@ -7,12 +7,13 @@
  * Require Statements
  *************************/
 
-const cookieParser = require("cookie-parser");
+const utilities = require("./utilities");
 const express = require("express")
 const env = require("dotenv").config()
 const path = require("path")
 const session = require("express-session")
 const pool = require('./database/')
+const cookieParser = require("cookie-parser");
 
 
 /* ***********************
@@ -65,7 +66,7 @@ app.use(function (req, res, next) {
 /* ***********************
  * Routes - Load AFTER all middleware
  *************************/
-const utilities = require("./utilities")
+
 const baseController = require("./controllers/baseController")
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
