@@ -56,5 +56,14 @@ router.post("/edit-inventory", invController.editInventory)
 // Process vehicle deletion request
 router.post("/delete-inventory", invController.deleteInventory)
 
+/* ================================
+ * Get inventory for AJAX Route
+ * Unit 5, Select inv item activity
+ * ================================ */
+router.get(
+    "/getInventory/:classification_id",
+    utilities.handleErrors(invController.getInventoryJSON)
+)
+
 
 module.exports = router;

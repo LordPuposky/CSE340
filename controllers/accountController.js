@@ -128,9 +128,11 @@ async function accountLogin(req, res) {
  * *************************************** */
 async function buildManagement(req, res, next) {
     let nav = await utilities.getNav()
+    const classificationSelect = await utilities.buildClassificationList()
     res.render("account/management", {
         title: "Account Management",
         nav,
+        classificationSelect,
         errors: null,
     })
 }
