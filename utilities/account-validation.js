@@ -102,4 +102,136 @@ validate.checkLoginData = async (req, res, next) => {
     next()
 }
 
+// Inventory Data Validation Rules
+validate.newInventoryRules = () => {
+    return [
+        body("inv_make")
+            .trim()
+            .notEmpty()
+            .withMessage("Make is required."),
+        body("inv_model")
+            .trim()
+            .notEmpty()
+            .withMessage("Model is required."),
+        body("inv_description")
+            .trim()
+            .notEmpty()
+            .withMessage("Description is required."),
+        body("inv_image")
+            .trim()
+            .notEmpty()
+            .withMessage("Image path is required."),
+        body("inv_thumbnail")
+            .trim()
+            .notEmpty()
+            .withMessage("Thumbnail path is required."),
+        body("inv_price")
+            .trim()
+            .notEmpty()
+            .withMessage("Price is required."),
+        body("inv_year")
+            .trim()
+            .notEmpty()
+            .withMessage("Year is required."),
+        body("inv_miles")
+            .trim()
+            .notEmpty()
+            .withMessage("Miles is required."),
+        body("inv_color")
+            .trim()
+            .notEmpty()
+            .withMessage("Color is required."),
+        body("classification_id")
+            .trim()
+            .notEmpty()
+            .withMessage("Classification is required."),
+    ]
+}
+
+// Check inventory data and return errors or continue to add
+validate.checkInventoryData = async (req, res, next) => {
+    const {
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+        classification_id,
+    } = req.body
+    let errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("inventory/add-inventory", {
+            errors,
+            title: "Add New Vehicle",
+            nav,
+            inv_make,
+            inv_model,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_year,
+            inv_miles,
+            inv_color,
+            classification_id,
+        })
+        return
+    }
+    next()
+}
+
+// Check update data and return errors or continue to update
+validate.checkUpdateData = async (req, res, next) => {
+    const {
+        inv_id,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+        classification_id,
+    } = req.body
+    
+    let errors = validationResult(req)
+    
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        const invModel = require("../models/inventory-model")
+        const classifications = await invModel.getClassifications()
+        const itemName = `${inv_make} ${inv_model}`
+        
+        res.render("inventory/edit-inventory", {
+            errors: errors.array(),
+            title: "Edit " + itemName,
+            nav,
+            classifications,
+            vehicle: {
+                inv_id,
+                inv_make,
+                inv_model,
+                inv_description,
+                inv_image,
+                inv_thumbnail,
+                inv_price,
+                inv_year,
+                inv_miles,
+                inv_color,
+                classification_id,
+            }
+        })
+        return
+    }
+    next()
+}
+
+
 module.exports = validate

@@ -3,6 +3,7 @@ const router = new express.Router()
 const { body, validationResult } = require("express-validator")
 const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
+const invValidate = require("../utilities/inventory-validation")
 
 const handleValidationErrors = (req, res, next) => {
     const errors = validationResult(req)
@@ -65,5 +66,42 @@ router.get(
     utilities.handleErrors(invController.getInventoryJSON)
 )
 
+/* ================================
+ * Deliver the delete confirmation view
+ * Unit 5, Delete Activity
+ * ================================ */
+router.get(
+    "/delete/:inv_id",
+    utilities.handleErrors(invController.deleteView)
+)
+
+/* ================================
+ * Process the delete inventory request
+ * Unit 5, Delete Activity
+ * ================================ */
+router.post(
+    "/delete",
+    utilities.handleErrors(invController.deleteItem)
+)
+
+/* ================================
+ * Process edit inventory request
+ * Unit 5, Edit Activity for a specific inventory item
+ * ================================ */
+router.get(
+    "/edit/:invId",
+    utilities.handleErrors(invController.showEditInventory)
+)
+
+/* ================================
+ *  Process update inventory request
+ *  Unit 5, Update Activity for a specific inventory item
+ * ================================ */
+router.post(
+    "/update",
+    invValidate.newInventoryRules(),
+    invValidate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory)
+)
 
 module.exports = router;

@@ -1,95 +1,72 @@
 <%- include("../partials/head") %>
-    <%- include('../partials/header') %>
-
-
-        <div class="home-content">
-            <%- include('../partials/nav') %>
-
-
-                <main>
-                    <h1>Edit Vehicle</h1>
-
-
-                    <% if (typeof errors !=='undefined' && errors.length> 0) { %>
-                        <ul class="notice">
-                            <% errors.forEach(error=> { %>
-                                <li>
-                                    <%= error.msg %>
-                                </li>
-                                <% }) %>
-                        </ul>
-                        <% } %>
-
-
-                            <form action="/inv/edit-inventory" method="post" class="form-edit-inventory">
-                                <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>" />
-
-
-                                <fieldset>
-                                    <legend>Vehicle Information</legend>
-
-
-                                    <label for="inv_make">Make</label>
-                                    <input type="text" id="inv_make" name="inv_make" required maxlength="50"
-                                        value="<%= vehicle.inv_make %>">
-
-
-                                    <label for="inv_model">Model</label>
-                                    <input type="text" id="inv_model" name="inv_model" required maxlength="50"
-                                        value="<%= vehicle.inv_model %>">
-
-
-                                    <label for="inv_year">Year</label>
-                                    <input type="number" id="inv_year" name="inv_year" required min="1900" max="2099"
-                                        value="<%= vehicle.inv_year %>">
-
-
-                                    <label for="inv_description">Description</label>
-                                    <textarea id="inv_description" name="inv_description" required
-                                        maxlength="500"><%= vehicle.inv_description %></textarea>
-
-
-                                    <label for="inv_image">Image (URL or path)</label>
-                                    <input type="text" id="inv_image" name="inv_image" required maxlength="255"
-                                        value="<%= vehicle.inv_image %>">
-
-
-                                    <label for="inv_thumbnail">Thumbnail (URL or path)</label>
-                                    <input type="text" id="inv_thumbnail" name="inv_thumbnail" required maxlength="255"
-                                        value="<%= vehicle.inv_thumbnail %>">
-
-
-                                    <label for="inv_price">Price ($)</label>
-                                    <input type="number" id="inv_price" name="inv_price" required step="1" min="0"
-                                        value="<%= Math.round(vehicle.inv_price) %>">
-
-
-                                    <label for="inv_miles">Miles</label>
-                                    <input type="number" id="inv_miles" name="inv_miles" required min="0"
-                                        value="<%= vehicle.inv_miles %>">
-
-
-                                    <label for="inv_color">Color</label>
-                                    <input type="text" id="inv_color" name="inv_color" required maxlength="20"
-                                        value="<%= vehicle.inv_color %>">
-
-
-                                    <label for="classification_id">Classification</label>
-                                    <select id="classification_id" name="classification_id" required>
-                                        <% classifications.forEach(function(classification) { %>
-                                            <option value="<%= classification.classification_id %>" <% if
-                                                (vehicle.classification_id===classification.classification_id) { %>
-                                                selected
-                                                <% } %>>
-                                                    <%= classification.classification_name %>
-                                            </option>
-                                            <% }) %>
-                                    </select>
-
-
-                                    <button type="submit">Update Vehicle</button>
-                                </fieldset>
-                            </form>
-                </main>
-        </div>
-        <%- include('../partials/footer') %>
+<%- include('../partials/header') %>
+<div class="home-content">
+    <%- include('../partials/nav') %>
+    <main>
+        <h1>Edit Vehicle</h1>
+        <% if (errors && errors.length > 0) { %>
+            <ul class="notice">
+                <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+        
+        <form action="/inv/update" method="post" class="form-edit-inventory" id="updateForm">
+            <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>" />
+            
+            <fieldset>
+                <legend>Vehicle Information</legend>
+                
+                <label for="inv_make">Make</label>
+                <input type="text" id="inv_make" name="inv_make" required maxlength="50"
+                    value="<%= vehicle.inv_make %>">
+                
+                <label for="inv_model">Model</label>
+                <input type="text" id="inv_model" name="inv_model" required maxlength="50"
+                    value="<%= vehicle.inv_model %>">
+                
+                <label for="inv_year">Year</label>
+                <input type="number" id="inv_year" name="inv_year" required min="1900" max="2099"
+                    value="<%= vehicle.inv_year %>">
+                
+                <label for="inv_description">Description</label>
+                <textarea id="inv_description" name="inv_description" required
+                    maxlength="500"><%= vehicle.inv_description %></textarea>
+                
+                <label for="inv_image">Image (URL or path)</label>
+                <input type="text" id="inv_image" name="inv_image" required maxlength="255"
+                    value="<%= vehicle.inv_image %>">
+                
+                <label for="inv_thumbnail">Thumbnail (URL or path)</label>
+                <input type="text" id="inv_thumbnail" name="inv_thumbnail" required maxlength="255"
+                    value="<%= vehicle.inv_thumbnail %>">
+                
+                <label for="inv_price">Price ($)</label>
+                <input type="number" id="inv_price" name="inv_price" required step="1" min="0"
+                    value="<%= Math.round(vehicle.inv_price) %>">
+                
+                <label for="inv_miles">Miles</label>
+                <input type="number" id="inv_miles" name="inv_miles" required min="0"
+                    value="<%= vehicle.inv_miles %>">
+                
+                <label for="inv_color">Color</label>
+                <input type="text" id="inv_color" name="inv_color" required maxlength="20"
+                    value="<%= vehicle.inv_color %>">
+                
+                <label for="classification_id">Classification</label>
+                <select id="classification_id" name="classification_id" required>
+                    <% classifications.forEach(function(classification) { %>
+                        <option value="<%= classification.classification_id %>" 
+                            <% if (vehicle.classification_id === classification.classification_id) { %>selected<% } %>>
+                            <%= classification.classification_name %>
+                        </option>
+                    <% }) %>
+                </select>
+                
+                <button type="submit">Update Vehicle</button>
+            </fieldset>
+        </form>
+    </main>
+</div>
+<%- include('../partials/footer') %>
