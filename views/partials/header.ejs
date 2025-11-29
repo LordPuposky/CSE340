@@ -2,7 +2,8 @@
     <div class="logo">
         <a href="/">CSE Motors</a>
     </div>
-    <nav>
+
+    <div class="account-tools">
         <% if (locals.loggedin) { %>
             <a href="/account/" title="Welcome and Account Management">
                 WELCOME <%= locals.accountData.account_firstname.toUpperCase() %>
@@ -10,10 +11,10 @@
             <a href="/account/logout" title="Click to log out">
                 LOGOUT
             </a>
-        <% } else { %>
-            <a href="/account/login" class="my-account" title="Click to log in or register">
-                My Account
-            </a>
-        <% } %>
-    </nav>
+            <% } else { %>
+                <a href="/account/login" class="my-account" title="Click to log in or register">
+                    My Account
+                </a>
+                <% } %>
+    </div>
 </header>
