@@ -71,7 +71,7 @@ Util.buildClassificationGrid = async function (data) {
 
 
 /* **********************************************
- *  Build the vehicle detail view HTML
+ * Build the vehicle detail view HTML
  * ******************************************** */
 Util.buildDetailView = async function (vehicle) {
     if (!vehicle) {
@@ -150,7 +150,7 @@ Util.checkJWTToken = (req, res, next) => {
 }
 
 /* ****************************************
- *  Check Login
+ * Check Login
  * ************************************ */
 Util.checkLogin = (req, res, next) => {
     if (res.locals.loggedin) {
@@ -158,6 +158,20 @@ Util.checkLogin = (req, res, next) => {
     } else {
         req.flash("notice", "Please log in.")
         return res.redirect("/account/login")
+    }
+}
+
+/* ****************************************
+ * Check Account Type (Authorization)
+ * ************************************ */
+Util.checkAuthorization = (req, res, next) => {
+    // Check if the user is logged in and if the account type is Employee or Admin
+    if (res.locals.loggedin && (res.locals.accountData.account_type === "Employee" || res.locals.accountData.account_type === "Admin")) {
+        next(); // Authorized, proceed to the next middleware or route handler
+    } else {
+        // Not authorized, flash message and redirect to login
+        req.flash("notice", "You do not have the necessary authorization to access this area.");
+        return res.redirect("/account/login");
     }
 }
 

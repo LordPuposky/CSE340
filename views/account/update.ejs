@@ -1,0 +1,67 @@
+<%- include("../partials/head") %>
+<%- include('../partials/header') %>
+
+<div class="home-content">
+    <%- include('../partials/nav') %>
+    <main>
+        <h1><%= title %></h1>
+        
+        <% if (typeof message !== 'undefined' && message && message.length > 0) { %>
+            <div class="flash-message">
+                <%= message[0] %>
+            </div>
+        <% } %>
+        <% if (locals.errors) { %>
+            <ul class="notice">
+            <% locals.errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+            </ul>
+        <% } %>
+
+        <form id="accountUpdateForm" action="/account/update" method="post" class="account-forms">
+            <h2>Account Update</h2>
+
+            <fieldset>
+                <label for="accountFirstname">First Name</label>
+                <input type="text" id="accountFirstname" name="account_firstname" required
+                    value="<%= locals.accountData.account_firstname %>">
+
+                <label for="accountLastname">Last Name</label>
+                <input type="text" id="accountLastname" name="account_lastname" required
+                    value="<%= locals.accountData.account_lastname %>">
+
+                <label for="accountEmail">Email Address</label>
+                <input type="email" id="accountEmail" name="account_email" required
+                    value="<%= locals.accountData.account_email %>">
+            </fieldset>
+
+            <input type="hidden" name="account_id"
+                value="<%= locals.accountData.account_id %>">
+
+            <input type="submit" value="Update Account" class="submit-btn">
+        </form>
+
+        <form id="passwordUpdateForm" action="/account/update/password" method="post" class="account-forms">
+            <h2>Change Password</h2>
+
+            <p class="notice">
+                **Note:** Entering a new password will permanently change your current password.
+                Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.
+            </p>
+
+            <fieldset>
+                <label for="accountPassword">New Password</label>
+                <input type="password" id="accountPassword" name="account_password" required
+                    pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9\s])(?=.*[A-Za-z]).{12,}$">
+            </fieldset>
+
+            <input type="hidden" name="account_id"
+                value="<%= locals.accountData.account_id %>">
+
+            <input type="submit" value="Change Password" class="submit-btn">
+        </form>
+    </main>
+</div>
+
+<%- include('../partials/footer') %>

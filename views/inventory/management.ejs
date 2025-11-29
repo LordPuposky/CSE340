@@ -1,39 +1,47 @@
 <%- include("../partials/head") %>
-    <%- include('../partials/header') %>
+<%- include('../partials/header') %>
 
-        <div class="home-content">
-            <%- include('../partials/nav') %>
-                <main>
-                    <h1>Account Management</h1>
-                    <% if (typeof notice !=='undefined' && notice && notice.length> 0) { %>
-                        <div class="notice">
-                            <%= notice %>
-                        </div>
-                        <% } %>
-                            <% if (typeof errors !=='undefined' && errors && errors.length> 0) { %>
-                                <div class="errors">
-                                    <%= errors %>
-                                </div>
-                                <% } %>
+<div class="home-content">
+    <%- include('../partials/nav') %>
+    <main>
+        <h1>Vehicle Management</h1>
+        
+        <!-- Flash message for success/failure notifications -->
+        <% if (locals.message) { %>
+            <div class="notice">
+                <%= message %>
+            </div>
+        <% } %>
+        
+        <!-- Error messages -->
+        <% if (locals.errors && errors.length > 0) { %>
+            <div class="errors">
+                <% errors.forEach(error => { %>
+                    <p><%= error.msg %></p>
+                <% }) %>
+            </div>
+        <% } %>
 
-                                    <p>You're logged in.</p>
+        <h2>Manage Inventory</h2>
+        
+        <ul>
+            <li><a href="/inv/add-classification">Add New Classification</a></li>
+            <li><a href="/inv/add-inventory">Add New Vehicle</a></li>
+        </ul>
 
-                                    <ul>
-                                        <li><a href="/inv/add-classification">Add New Classification</a></li>
-                                        <li><a href="/inv/add-inventory">Add New Vehicle</a></li>
-                                    </ul>
+        <h3>Inventory Items by Classification</h3>
+        <p>Choose a classification to see those inventory items:</p>
+        
+        <%- classificationSelect %>
 
-                                    <h2>Manage Inventory</h2>
-                                    <p>Choose a classification to see those inventory items</p>
-                                    <%-classificationSelect%>
+        <table id="inventoryDisplay"></table>
 
-                                        <table id="inventoryDisplay"></table>
+        <noscript>
+            <p class="notice">JavaScript must be enabled to use this page.</p>
+        </noscript>
 
-                                        <noscript>JavaScript must be enabled to use this page.</noscript>
+        <script src="/js/inventory.js"></script>
+    </main>
+</div>
 
-                                        <script src="/js/inventory.js"></script>
-
-                </main>
-        </div>
-
-        <%- include('../partials/footer') %>
+<%- include('../partials/footer') %>

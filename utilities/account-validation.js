@@ -1,9 +1,10 @@
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
+const accountModel = require("../models/account-model") // Import needed for email check
 const validate = {}
 
 /* **********************************
- *  Registration Data Validation Rules
+ * Registration Data Validation Rules
  * ********************************* */
 validate.registationRules = () => {
     return [
@@ -102,130 +103,94 @@ validate.checkLoginData = async (req, res, next) => {
     next()
 }
 
-// Inventory Data Validation Rules
-validate.newInventoryRules = () => {
+/* **********************************
+ * Account Update Data Validation Rules
+ * Task 5 - Validation Function 1
+ * ********************************* */
+validate.updateAccountRules = () => {
     return [
-        body("inv_make")
+        // firstname is required and must be string
+        body("account_firstname")
             .trim()
+            .escape()
             .notEmpty()
-            .withMessage("Make is required."),
-        body("inv_model")
+            .isLength({ min: 1 })
+            .withMessage("Please provide a first name."),
+
+        // lastname is required and must be string
+        body("account_lastname")
             .trim()
+            .escape()
             .notEmpty()
-            .withMessage("Model is required."),
-        body("inv_description")
+            .isLength({ min: 2 })
+            .withMessage("Please provide a last name."),
+
+        // valid email is required and cannot already exist in the DB for another account
+        body("account_email")
             .trim()
+            .escape()
             .notEmpty()
-            .withMessage("Description is required."),
-        body("inv_image")
-            .trim()
-            .notEmpty()
-            .withMessage("Image path is required."),
-        body("inv_thumbnail")
-            .trim()
-            .notEmpty()
-            .withMessage("Thumbnail path is required."),
-        body("inv_price")
-            .trim()
-            .notEmpty()
-            .withMessage("Price is required."),
-        body("inv_year")
-            .trim()
-            .notEmpty()
-            .withMessage("Year is required."),
-        body("inv_miles")
-            .trim()
-            .notEmpty()
-            .withMessage("Miles is required."),
-        body("inv_color")
-            .trim()
-            .notEmpty()
-            .withMessage("Color is required."),
-        body("classification_id")
-            .trim()
-            .notEmpty()
-            .withMessage("Classification is required."),
+            .isEmail()
+            .normalizeEmail()
+            .withMessage("A valid email is required.")
+            .custom(async (account_email, { req }) => {
+                const account_id = req.body.account_id
+                const accountData = await accountModel.getAccountById(account_id)
+
+                // Only check if email has changed
+                if (account_email != accountData.account_email) {
+                    const emailExists = await accountModel.getAccountByEmail(account_email)
+                    if (emailExists) {
+                        throw new Error("This email already exists in our database.")
+                    }
+                }
+            }),
     ]
 }
 
-// Check inventory data and return errors or continue to add
-validate.checkInventoryData = async (req, res, next) => {
-    const {
-        inv_make,
-        inv_model,
-        inv_description,
-        inv_image,
-        inv_thumbnail,
-        inv_price,
-        inv_year,
-        inv_miles,
-        inv_color,
-        classification_id,
-    } = req.body
-    let errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        let nav = await utilities.getNav()
-        res.render("inventory/add-inventory", {
-            errors,
-            title: "Add New Vehicle",
-            nav,
-            inv_make,
-            inv_model,
-            inv_description,
-            inv_image,
-            inv_thumbnail,
-            inv_price,
-            inv_year,
-            inv_miles,
-            inv_color,
-            classification_id,
-        })
-        return
-    }
-    next()
+/* **********************************
+ * Password Update Data Validation Rules
+ * Task 5 - Validation Function 2
+ * ********************************* */
+validate.updatePasswordRules = () => {
+    return [
+        // password is required and must be strong password
+        body("account_password")
+            .trim()
+            .notEmpty()
+            .isStrongPassword({
+                minLength: 12,
+                minLowercase: 1,
+                minUppercase: 1,
+                minNumbers: 1,
+                minSymbols: 1,
+            })
+            .withMessage("Password does not meet requirements."),
+    ]
 }
 
-// Check update data and return errors or continue to update
+/* ******************************
+ * Check account update data and return errors or continue with update
+ * Task 5 - Validation Middleware
+ * ***************************** */
 validate.checkUpdateData = async (req, res, next) => {
-    const {
-        inv_id,
-        inv_make,
-        inv_model,
-        inv_description,
-        inv_image,
-        inv_thumbnail,
-        inv_price,
-        inv_year,
-        inv_miles,
-        inv_color,
-        classification_id,
-    } = req.body
-    
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
     let errors = validationResult(req)
-    
+
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
-        const invModel = require("../models/inventory-model")
-        const classifications = await invModel.getClassifications()
-        const itemName = `${inv_make} ${inv_model}`
-        
-        res.render("inventory/edit-inventory", {
-            errors: errors.array(),
-            title: "Edit " + itemName,
+
+        // Return the update view with sticky data
+        res.render("account/update", {
+            errors,
+            title: "Edit Account",
             nav,
-            classifications,
-            vehicle: {
-                inv_id,
-                inv_make,
-                inv_model,
-                inv_description,
-                inv_image,
-                inv_thumbnail,
-                inv_price,
-                inv_year,
-                inv_miles,
-                inv_color,
-                classification_id,
+            // Override locals.accountData with req.body for sticky fields
+            accountData: {
+                account_firstname,
+                account_lastname,
+                account_email,
+                account_id
             }
         })
         return
@@ -233,5 +198,25 @@ validate.checkUpdateData = async (req, res, next) => {
     next()
 }
 
+/* ******************************
+ * Check password update data and return errors or continue with update
+ * ***************************** */
+validate.checkPasswordData = async (req, res, next) => {
+    let errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+
+        // Render the update view. Use existing locals.accountData for non-password fields
+        res.render("account/update", {
+            errors,
+            title: "Edit Account",
+            nav,
+            accountData: res.locals.accountData // Use existing data for sticky form elements
+        })
+        return
+    }
+    next()
+}
 
 module.exports = validate

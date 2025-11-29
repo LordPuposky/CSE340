@@ -84,7 +84,8 @@ invCont.showManagement = async function (req, res) {
         title: "Vehicle Management",
         nav,
         classificationSelect,
-        message: req.flash ? req.flash('message') : null
+        errors: null,
+        message: req.flash('notice')
     })
 }
 
@@ -385,7 +386,7 @@ invCont.updateInventory = async function (req, res, next) {
     if (updateResult) {
         const itemName = updateResult.inv_make + " " + updateResult.inv_model
         req.flash("notice", `The ${itemName} was successfully updated.`)
-        res.redirect("/inv/")
+        res.redirect("/inv")
     } else {
         const classifications = await invModel.getClassifications()
         const itemName = `${inv_make} ${inv_model}`
