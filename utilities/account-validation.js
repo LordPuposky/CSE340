@@ -171,21 +171,18 @@ validate.updatePasswordRules = () => {
 
 /* ******************************
  * Check account update data and return errors or continue with update
- * Task 5 - Validation Middleware
  * ***************************** */
 validate.checkUpdateData = async (req, res, next) => {
     const { account_firstname, account_lastname, account_email, account_id } = req.body
+    
     let errors = validationResult(req)
-
+    
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
-
-        // Return the update view with sticky data
-        res.render("account/update", {
-            errors,
+        return res.render("account/update", {
+            errors: errors.array(),
             title: "Edit Account",
             nav,
-            // Override locals.accountData with req.body for sticky fields
             accountData: {
                 account_firstname,
                 account_lastname,
@@ -193,7 +190,6 @@ validate.checkUpdateData = async (req, res, next) => {
                 account_id
             }
         })
-        return
     }
     next()
 }

@@ -42,14 +42,12 @@ async function registerAccount(req, res) {
         account_password
     } = req.body
 
-
     const regResult = await accountModel.registerAccount(
         account_firstname,
         account_lastname,
         account_email,
         account_password
     )
-
 
     if (regResult) {
         req.flash(
@@ -100,14 +98,27 @@ async function accountLogin(req, res) {
     try {
         if (await bcrypt.compare(account_password, accountData.account_password)) {
             delete accountData.account_password
-            const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
-            if (process.env.NODE_ENV === 'development') {
-                res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
-            } else {
-                res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+
+            const accessToken = jwt.sign(
+                accountData,
+                process.env.ACCESS_TOKEN_SECRET,
+                { expiresIn: "1h" }
+            )
+
+            const cookieOptions = {
+                httpOnly: true,
+                maxAge: 3600 * 1000
             }
+
+            if (process.env.NODE_ENV !== 'development') {
+                cookieOptions.secure = true
+            }
+
+            res.cookie("jwt", accessToken, cookieOptions)
+
             return res.redirect("/account/")
         }
+
         else {
             req.flash("notice", "Please check your credentials and try again.")
             res.status(400).render("account/login", {
@@ -125,16 +136,15 @@ async function accountLogin(req, res) {
 /* ****************************************
  * Deliver Account Management view
  * Unit 5, JWT Authorization activity
+ * Task 3: Display account info with greeting
  * *************************************** */
 async function buildManagement(req, res, next) {
     let nav = await utilities.getNav()
-    // The classificationSelect is only relevant if Inventory Management logic is embedded here
-    // const classificationSelect = await utilities.buildClassificationList()
     res.render("account/management", {
         title: "Account Management",
         nav,
-        // classificationSelect,
         errors: null,
+        message: req.flash('notice')
     })
 }
 
@@ -149,7 +159,6 @@ async function buildUpdateView(req, res, next) {
         title: "Edit Account",
         nav,
         errors: null,
-        // The data passed to the view is automatically handled by locals
     })
 }
 
@@ -166,7 +175,6 @@ async function updateAccountData(req, res, next) {
         account_id
     } = req.body
 
-    // Check if the email is being changed and if it already exists (This logic should be in middleware, but we handle the error flow here)
     const updateResult = await accountModel.updateAccount(
         account_firstname,
         account_lastname,
@@ -175,31 +183,29 @@ async function updateAccountData(req, res, next) {
     )
 
     if (updateResult) {
-        // 1. Query the account data from the database after the update is done.
+        // 1. Query the account data from the database after the update is done
         const updatedAccountData = await accountModel.getAccountById(account_id)
-        
+
         // 2. Clear old JWT and create a new one with updated data
         delete updatedAccountData.account_password
         const accessToken = jwt.sign(updatedAccountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
-        
-        // 3. Set the success message
-        req.flash("notice", `Congratulations, your account information has been successfully updated.`)
 
-        // 4. Update the cookie and locals for the redirect
+        // 3. Update the cookie with new token
         if (process.env.NODE_ENV === 'development') {
             res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
         } else {
             res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
         }
-        
+
+        // 4. Set the success message
+        req.flash("notice", "Congratulations, your account information has been successfully updated.")
+
         // 5. Deliver the management view where the updated account information will be displayed
         return res.redirect("/account/")
 
     } else {
-        // Set a failure message
-        req.flash("notice", "Sorry, the update failed. Please try again.")
-        // Return to the update view (if using local variable for errors, those are handled by the router/middleware)
-        return res.redirect(`/account/update/${account_id}`)
+        req.flash("notice", "Sorry, the update failed. A database error occurred.")
+        return res.redirect("/account/update/" + account_id)
     }
 }
 
@@ -226,13 +232,13 @@ async function updateAccountPassword(req, res, next) {
     if (updateResult) {
         // Determine the result and set success message
         req.flash("notice", "Congratulations, your password has been successfully updated.")
-        
+
         // Deliver the management view where the account information will be displayed
         return res.redirect("/account/")
     } else {
         // Determine the result and set failure message
         req.flash("notice", "Sorry, the password update failed.")
-        
+
         // Return to the update view
         return res.redirect(`/account/update/${account_id}`)
     }
@@ -243,13 +249,15 @@ async function updateAccountPassword(req, res, next) {
  * Task 6
  * *************************************** */
 async function accountLogout(req, res) {
-    // Delete the JWT cookie
-    res.clearCookie("jwt");
-    
-    // Redirect to the home view
-    res.redirect("/");
-}
+    // Clear the JWT cookie
+    res.clearCookie("jwt")
 
+    // Set logout success message
+    req.flash("notice", "You have been successfully logged out.")
+
+    // Redirect to home
+    res.redirect("/")
+}
 
 module.exports = {
     buildLogin,
@@ -258,8 +266,8 @@ module.exports = {
     buildProfile,
     accountLogin,
     buildManagement,
-    buildUpdateView, // Added for Task 5
-    updateAccountData, // Added for Task 5
-    updateAccountPassword, // Added for Task 5
-    accountLogout // Added for Task 6
+    buildUpdateView,
+    updateAccountData,
+    updateAccountPassword,
+    accountLogout
 }

@@ -1,14 +1,25 @@
-    <!DOCTYPE html>
-    <html lang="en">
-        <%- include('partials/head') %>
-        <body>
-            <div class="home-content">
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+
+    <body>
+        <div class="home-content">
             <%- include('partials/header') %>
-            <%- include('partials/nav') %>
-            <main>
-                <%- body %>
-            </main>
-            <%- include('partials/footer') %>
-            </div>
-        </body>
-    </html>
+
+                <% if (locals.messages && locals.messages.notice) { %>
+                    <div class="flash-notice success-message">
+                        <%= locals.messages.notice %>
+                    </div>
+                    <% } %>
+
+                        <%- include('partials/nav') %>
+
+                            <main>
+                                <%- body %>
+                            </main>
+
+                            <%- include('partials/footer') %>
+        </div>
+    </body>
+
+</html>
